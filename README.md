@@ -5,4 +5,5 @@ This repository contains codes and details about my projects under SPL-1
 
 #work done so far:
           1. Looked into using graphics.h header for visual graphics 
+          2. Initialized graphics.h header for use in Visual Studio code along with C++
           
