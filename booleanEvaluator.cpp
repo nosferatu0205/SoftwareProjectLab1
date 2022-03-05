@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 
-#include<graphics.h>
+//#include<graphics.h>
 
 
 
@@ -25,18 +25,9 @@ int main(){
     for(int i=0;i<16;i++){
         truthTable[i]=0;
     }*/
+    //tokenizer for separating operators and operands
 
-    //initialize string to store input expression
-    
-    //converting string to Chomsky normal form
-    string cnfExp;
-    cnfExp=inputExp;
-    int cnfExpLength=cnfExp.length();
-    for(int i=0;i<cnfExpLength;i++){
-        if(cnfExp[i]=='.'){
-            cnfExp[i]='^';
-        }
-    }
+
 
 
     //initialize stack to store operators
