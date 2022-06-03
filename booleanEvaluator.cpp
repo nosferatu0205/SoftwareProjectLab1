@@ -1043,7 +1043,7 @@ int main()
     // int gd = DETECT, gm;
     // initgraph(&gd, &gm, NULL);
 
-    printf("Press 1 to view basic gate circuit diagrams\nPress 2 to generate circuit diagram from expression\t");
+    printf("Press 1 to view basic gate circuit diagrams\nPress 2 to generate circuit diagram from expression\nPress 3 to use k-map circuit simplifier\n");
 
     int choice;
     //settextstyle(0, HORIZ_DIR, 1);
@@ -1075,6 +1075,7 @@ int main()
         getInput();
         initKMap();
         initBinaryMintermsKMap();
+        cout<<"Kmap"<<endl;
         printKMap();
         findImplicant();
         sortImplicants();
