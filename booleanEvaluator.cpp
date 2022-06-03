@@ -2,12 +2,14 @@
 #include <graphics.h>
 #include <conio.h>
 #include <X11/Xlib.h>
+#include "simplifier.h"
 
 void drawNot();
 void makeOutput();
 void drawOr();
 void drawAnd();
 void setLevel();
+void drawXor();
 
 bool boolOR0(bool x)
 {
@@ -45,7 +47,7 @@ bool boolANDcomplement(bool x)
 
 #define SIZE 200
 
-char stack[SIZE];
+char shtack[SIZE];
 int top = -1;
 
 char input[SIZE];
@@ -124,7 +126,7 @@ void push(char item)
     else
     {
         top = top + 1;
-        stack[top] = item;
+        shtack[top] = item;
     }
 }
 
@@ -141,7 +143,7 @@ char pop()
 
     else
     {
-        item = stack[top];
+        item = shtack[top];
         top = top - 1;
         return (item);
     }
@@ -161,8 +163,11 @@ int is_operator(char symbol)
 }
 
 int precedence(char symbol)
-{
-    if (symbol == '*' || symbol == '-')
+{   if (symbol == '^')
+    {
+        return (4);
+    }
+    else if (symbol == '*' || symbol == '-')
     {
         return (3);
     }
@@ -342,6 +347,23 @@ void evaluationOfExpression(char postfix[])
                 drawAnd();
                 push(temp);
             }
+            else if(ch == '^'){
+                A = pop();
+                B = pop();
+                
+                makeString();
+                drawXor();
+                push(temp);
+            }
+            else if(ch == '&'){
+                A = pop();
+                B = pop();
+
+                makeString();
+                drawXor();
+                push(temp);
+            }
+
         }
     }
 }
@@ -774,7 +796,13 @@ void drawBasics()
 
     SetVariables();
 
-    printf("Enter number to print associated gate\n 1.AND 2.OR 3.NOT 4.NOR 5.NAND 6.XOR 7.XNOR\n");
+            printf("Press 1 to view AND gate\t");
+            printf("Press 2 to view OR gate\t");
+            printf("Press 3 to view NOT gate\t\n");
+            printf("Press 4 to view NOT gate\t");
+            printf("Press 5 to view NAND gate\t");
+            printf("Press 6 to view XOR gate\t");
+            printf("Press 7 to view XNOR gate\n");
     printf("Enter Choice:");
     scanf("%d", &choicedrawer);
 
@@ -964,7 +992,7 @@ std::string infixToPrefix(std::string infix)
     return prefix;
 }
 
-using namespace std;
+
 int main()
 {
     // string inputExp;
@@ -1012,13 +1040,13 @@ int main()
     //     delay(500000);
     //     closegraph();
 
-    int gd = DETECT, gm;
-    initgraph(&gd, &gm, NULL);
+    // int gd = DETECT, gm;
+    // initgraph(&gd, &gm, NULL);
 
     printf("Press 1 to view basic gate circuit diagrams\nPress 2 to generate circuit diagram from expression\t");
 
     int choice;
-    settextstyle(0, HORIZ_DIR, 1);
+    //settextstyle(0, HORIZ_DIR, 1);
     scanf("%d", &choice);
 
     if (choice == 1)
@@ -1042,6 +1070,23 @@ int main()
         delay(500000);
         closegraph();
     }
+
+    else if(choice==3){
+        getInput();
+        initKMap();
+        initBinaryMintermsKMap();
+        printKMap();
+        findImplicant();
+        sortImplicants();
+        assignInclusionTimes();
+        eliminateDupeImplicants();
+        getEPrimeImplicant();
+        getFinalExpression();
+
+        cout << "Simplified expression: " << finalExpression << endl;
+    }
+
+    
 
     return 0;
 }
